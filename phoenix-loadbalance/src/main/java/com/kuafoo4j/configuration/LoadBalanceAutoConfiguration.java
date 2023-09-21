@@ -1,14 +1,12 @@
 package com.kuafoo4j.configuration;
 
 import com.kuafoo4j.core.client.*;
-import com.kuafoo4j.loadbalance.IPhoenixServerDiscovery;
 import com.kuafoo4j.loadbalance.PhoenixRoundLoadBalance;
 import com.kuafoo4j.loadbalance.ServerDiscoveryAdaptor;
-import org.springframework.beans.factory.ObjectProvider;
+import com.kuafoo4j.phoenix.commom.core.api.IPhoenixServerDiscovery;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.web.client.RestTemplateCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -19,19 +17,24 @@ import java.util.List;
 
 /**
  * 自动装配
+ *
  * @author kuafoo4j
  */
 @Configuration
 public class LoadBalanceAutoConfiguration {
 
+    /**
+     * 获取所有的RestTemplate
+     */
     @Autowired
     private List<RestTemplate> restTemplateList = new ArrayList<>();
 
     /**
      * SmartInitializingSingleton: Springboot扩展点,当所有单例 bean 都初始化完成以后，
      * Spring的IOC容器会回调该接口的 afterSingletonsInstantiated()方法。
-     *
+     * <p>
      * 使用给RestTemplate添加loadBalance拦截器
+     *
      * @param loadBalanceInterceptor
      * @return
      */
@@ -40,7 +43,7 @@ public class LoadBalanceAutoConfiguration {
         return () -> {
             for (RestTemplate restTemplate : this.restTemplateList) {
                 List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
-                // 添加拦截器
+                // 添加loadBalance拦截器
                 interceptors.add(loadBalanceInterceptor);
                 restTemplate.setInterceptors(interceptors);
             }
@@ -60,7 +63,8 @@ public class LoadBalanceAutoConfiguration {
     }
 
     /**
-     * 服务实例查询 TODO Phoenix适配
+     * 服务实例查询 Phoenix注册中心适配
+     *
      * @param serverDiscovery
      * @return
      */
@@ -102,7 +106,7 @@ public class LoadBalanceAutoConfiguration {
     @Bean
     public LoadBalanceInterceptor loadBalanceInterceptor(LoadBalanceClient loadBalanceClient,
                                                          LoadBalanceHttpClient httpClient) {
-        return new LoadBalanceInterceptor(loadBalanceClient,httpClient);
+        return new LoadBalanceInterceptor(loadBalanceClient, httpClient);
     }
 
 }

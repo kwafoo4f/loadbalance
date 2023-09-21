@@ -2,6 +2,8 @@ package com.kuafoo4j.loadbalance;
 
 import com.kuafoo4j.core.client.IServerDiscovery;
 import com.kuafoo4j.core.pojo.Server;
+import com.kuafoo4j.phoenix.commom.core.api.IPhoenixServerDiscovery;
+import com.kuafoo4j.phoenix.commom.core.pojo.Instance;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;

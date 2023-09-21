@@ -22,6 +22,12 @@
             <artifactId>loadbalance-core</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <!--kwafoo4f注册中心-->
+        <dependency>
+            <groupId>org.kwafoo4f</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0.1</version>
+        </dependency>
     </dependencies>
 
 </project>
