@@ -49,17 +49,24 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
-        <!--注册中心客户端-->
-<!--        <dependency>-->
-<!--            <groupId>org.kwafoo4f</groupId>-->
-<!--            <artifactId>client</artifactId>-->
-<!--            <version>1.0.1</version>-->
-<!--        </dependency>-->
+<!--        注册中心客户端-->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-            <version>2.2.10.RELEASE</version>
+            <groupId>org.kwafoo4f</groupId>
+            <artifactId>client</artifactId>
+            <version>1.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.kuafoo4j</groupId>
+            <artifactId>phoenix-loadbalance</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>-->
+<!--            <version>2.2.10.RELEASE</version>-->
+<!--        </dependency>-->
     </dependencies>
 
 

@@ -4,6 +4,7 @@ import com.kuafoo4j.core.client.*;
 import com.kuafoo4j.loadbalance.PhoenixRoundLoadBalance;
 import com.kuafoo4j.loadbalance.ServerDiscoveryAdaptor;
 import com.kuafoo4j.phoenix.commom.core.api.IPhoenixServerDiscovery;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -20,13 +21,14 @@ import java.util.List;
  *
  * @author kuafoo4j
  */
+@Slf4j
 @Configuration
 public class LoadBalanceAutoConfiguration {
 
     /**
      * 获取所有的RestTemplate
      */
-    @Autowired
+    @Autowired(required = false)
     private List<RestTemplate> restTemplateList = new ArrayList<>();
 
     /**
@@ -42,6 +44,7 @@ public class LoadBalanceAutoConfiguration {
     public SmartInitializingSingleton loadBalancedRestTemplateInitializer(LoadBalanceInterceptor loadBalanceInterceptor) {
         return () -> {
             for (RestTemplate restTemplate : this.restTemplateList) {
+                log.info("restTemplate 添加loadBalance拦截器 for {} ",restTemplate);
                 List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
                 // 添加loadBalance拦截器
                 interceptors.add(loadBalanceInterceptor);
@@ -59,6 +62,7 @@ public class LoadBalanceAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(ILoadBalance.class)
     public ILoadBalance loadBalance() {
+        log.info("ILoadBalance choose PhoenixRoundLoadBalance");
         return new PhoenixRoundLoadBalance();
     }
 
@@ -70,6 +74,7 @@ public class LoadBalanceAutoConfiguration {
      */
     @Bean
     public IServerDiscovery serverDiscovery(IPhoenixServerDiscovery serverDiscovery) {
+        log.info("IServerDiscovery init {} ",serverDiscovery);
         return new ServerDiscoveryAdaptor(serverDiscovery);
     }
 
