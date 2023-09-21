@@ -2,12 +2,8 @@ package com.kuafoo4j.core.client;
 
 import com.kuafoo4j.core.pojo.Server;
 import org.springframework.http.HttpRequest;
-import org.springframework.http.client.ClientHttpRequestExecution;
-import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.support.HttpRequestWrapper;
 
-import javax.xml.ws.Service;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 

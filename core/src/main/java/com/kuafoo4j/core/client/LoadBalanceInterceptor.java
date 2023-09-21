@@ -24,6 +24,15 @@ public class LoadBalanceInterceptor implements ClientHttpRequestInterceptor {
         this.httpClient = httpClient;
     }
 
+    /**
+     * 拦截http请求,负载均衡器选取一个主机，将服务名替换为具体主机并发起调用.
+     *
+     * @param request
+     * @param bytes
+     * @param execution
+     * @return
+     * @throws IOException
+     */
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] bytes,
                                         ClientHttpRequestExecution execution) throws IOException {

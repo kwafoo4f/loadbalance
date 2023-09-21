@@ -4,6 +4,9 @@ import com.kuafoo4j.core.pojo.Server;
 
 import java.util.List;
 
+/**
+ * 负载均衡客户端
+ */
 public class LoadBalanceClient {
 
     private IServerDiscovery serverDiscovery;
