@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * @description:
+ * @description: 注入RestTemplate
  * @author: zk
  * @date: 2023-09-22 9:41
  */
